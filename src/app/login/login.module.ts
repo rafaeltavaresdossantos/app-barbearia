@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { Route } from '@angular/compiler/src/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { SharedModule } from '../shared/shared.module';
 
 const rotas: Routes = [{
   path: '',
@@ -16,10 +17,8 @@ const rotas: Routes = [{
     LoginComponent,
   ],
   imports: [
-    CommonModule,
     RouterModule.forChild(rotas),
-    FormsModule,
-    IonicModule,
+    SharedModule
   ]
 })
 export class LoginModule { }
