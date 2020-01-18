@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       ],
       senha: [ '',[
         Validators.required,
-        Validators.minLength[6],
+        Validators.minLength(6),
       ]
     ],
       
