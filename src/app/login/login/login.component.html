@@ -1,12 +1,47 @@
+
 <ion-content class="ion-padding">
   <h1 class="ion-text-center">
-    <!-- <ion-icon name="done-all" color="primary" class="icon-7em"></ion-icon> -->
-    <img src="assets\img\logo.jpg">
+   <img src="assets/img/logo.jpg" alt="">
   </h1>
 
-  <form [formGroup]="loginForm" (submit)="realizarLogin()">
+  <form
+    [formGroup]="loginForm"
+    (submit)="realizarLogin()"
+  >
+
+    <ng-container *ngIf="!comparaCadEmail.modoLogin">
+      <ion-item>
+        <ion-icon
+          name="person"
+          color="primary"
+          slot="start"
+        ></ion-icon>
+        <ion-input
+          type="text"
+          placeholder="None"
+          formControlName="nome"
+        ></ion-input>
+        <ion-note
+          slot="end"
+          color="danger"
+          
+        >
+        </ion-note>
+        <ion-note
+          slot="end"
+          color="danger"
+        >
+         
+        </ion-note>
+      </ion-item>
+    </ng-container>
+
     <ion-item>
-      <ion-icon name="mail" color="primary" slot="start"></ion-icon>
+      <ion-icon
+        name="mail"
+        color="primary"
+        slot="start"
+      ></ion-icon>
       <ion-input
         type="email"
         placeholder="Email"
@@ -14,31 +49,70 @@
         inputmode="email"
         autofocus="true"
       ></ion-input>
-      <ion-note slot="end" color="danger" *ngIf="loginForm.get('email').dirty && loginForm.get('email').hasError('required')"
-        >Email obrigatório</ion-note
+      <ion-note
+        slot="end"
+        color="danger"
+        *ngIf="loginForm.get('email').dirty && loginForm.get('email').hasError('required')"
       >
-      <ion-note slot="end" color="danger" *ngIf="loginForm.get('email').dirty && loginForm.get('email').hasError('email')"
-        >Email inválido</ion-note
+        Required
+      </ion-note>
+      <ion-note
+        slot="end"
+        color="danger"
+        *ngIf="loginForm.get('email').dirty && loginForm.get('email').hasError('email')"
       >
+        Invalid email
+      </ion-note>
     </ion-item>
 
     <ion-item>
-      <ion-icon name="lock" color="primary" slot="start"></ion-icon>
-      <ion-input type="password" placeholder="Senha" formControlName="senha"></ion-input>
-      <ion-note slot="end" color="danger" *ngIf="loginForm.get('senha').dirty && loginForm.get('senha').hasError('required')"
-        >Senha obrigatória</ion-note
+      <ion-icon
+        name="lock"
+        color="primary"
+        slot="start"
+      ></ion-icon>
+      <ion-input
+        type="senha"
+        placeholder="Senha"
+        formControlName="senha"
+      ></ion-input>
+      <ion-note
+        slot="end"
+        color="danger"
+        *ngIf="loginForm.get('email').dirty && loginForm.get('email').hasError('required')"
       >
-      <ion-note slot="end" color="danger" *ngIf="loginForm.get('senha').dirty && loginForm.get('senha').hasError('minlength')"
-        >Mínimo 6 caracteres</ion-note
+        Email obrigatório
+      </ion-note>
+      <ion-note
+        slot="end"
+        color="danger"
+        *ngIf="loginForm.get('email').dirty && loginForm.get('email').hasError('minlength')"
       >
+        Mínimo 6 caracteres
+      </ion-note>
     </ion-item>
 
-    <ion-button expand="block" type="submit" [disabled]="loginForm.invalid">Login</ion-button>
+    <ion-button
+      expand="block"
+      type="submit"
+      [disabled]="loginForm.invalid"
+    >
+      {{ comparaCadEmail.acao }}
+    </ion-button>
   </form>
 
-  <ion-button expand="block" fill="clear">Criar conta</ion-button>
-  <ion-button expand="block">
-    <ion-icon name="logo-facebook" slot="start"></ion-icon>
-    Login com Facebook
+  <ion-button
+    expand="block"
+    fill="clear"
+    (click)="trocaModoLoginCadastro()"
+  >
+    {{ comparaCadEmail.trocaAcao }}
+  </ion-button>
+  <ion-button type="submit" expand="block">
+    <ion-icon
+      name="logo-facebook"
+      slot="start"
+    ></ion-icon>
+    logar com Facebook
   </ion-button>
 </ion-content>
