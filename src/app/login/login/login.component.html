@@ -61,7 +61,7 @@
         color="danger"
         *ngIf="loginForm.get('email').dirty && loginForm.get('email').hasError('email')"
       >
-        Invalid email
+        Email inválido
       </ion-note>
     </ion-item>
 
@@ -72,7 +72,7 @@
         slot="start"
       ></ion-icon>
       <ion-input
-        type="senha"
+        type="password"
         placeholder="Senha"
         formControlName="senha"
       ></ion-input>
@@ -113,6 +113,6 @@
       name="logo-facebook"
       slot="start"
     ></ion-icon>
-    logar com Facebook
+    Logar com Facebook
   </ion-button>
 </ion-content>
