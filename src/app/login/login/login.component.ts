@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ModoAutenticacao } from 'src/app/core/services/auth.types';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { RecursosService } from 'src/app/core/services/recursos.service';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private recursoService: RecursosService,
   ) { }
 
   ngOnInit() {
@@ -50,16 +52,17 @@ export class LoginComponent implements OnInit {
   }
 
  async realizarLogin(modoAutenticacao : ModoAutenticacao){
-
-  console.log(modoAutenticacao);
-     
+  const modoCarregando = await this.recursoService.loading();
     try {
       const usuarioLogin = await this.authService.logar({
         isCadastro: !this.comparaCadEmail.modoLogin, modoAutenticacao: modoAutenticacao, usuario: this.loginForm.value})
         console.log("Entrouuu", usuarioLogin);
 
     } catch (error) {
-      console.log("erro: ",error);
+        console.log(error);
+        await this.recursoService.toast({message: error.message})
+    } finally {
+      modoCarregando.dismiss();
     }
   }
 
