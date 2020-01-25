@@ -18,7 +18,7 @@
         ></ion-icon>
         <ion-input
           type="text"
-          placeholder="None"
+          placeholder="Nome"
           formControlName="nome"
         ></ion-input>
         <ion-note
@@ -54,7 +54,7 @@
         color="danger"
         *ngIf="loginForm.get('email').dirty && loginForm.get('email').hasError('required')"
       >
-        Required
+        Email obrigatório
       </ion-note>
       <ion-note
         slot="end"
