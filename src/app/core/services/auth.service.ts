@@ -27,6 +27,10 @@ export class AuthService {
       })
 
   }
+  logarComFacebook() :Promise<auth.UserCredential>{
+    const dadosLogin = new auth.FacebookAuthProvider()
+    return this.afauth.auth.signInWithPopup(dadosLogin);
+  }
 }
 
  
