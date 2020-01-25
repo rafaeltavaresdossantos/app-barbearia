@@ -1,5 +1,7 @@
 {
   "name": "app-barbearia",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
