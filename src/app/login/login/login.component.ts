@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { ModoAutenticacao } from 'src/app/core/services/auth.types';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,13 +16,15 @@ export class LoginComponent implements OnInit {
     acao: 'Login',
     trocaAcao: 'Cadastro'
   }
+  public modoAutenticacao = ModoAutenticacao;
   private controlNome = new FormControl(
     '',
     [Validators.required]
    )
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -45,8 +49,18 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  realizarLogin(){
-    
+ async realizarLogin(modoAutenticacao : ModoAutenticacao){
+
+  console.log(modoAutenticacao);
+     
+    try {
+      const usuarioLogin = await this.authService.logar({
+        isCadastro: !this.comparaCadEmail.modoLogin, modoAutenticacao: modoAutenticacao, usuario: this.loginForm.value})
+        console.log("Entrouuu", usuarioLogin);
+
+    } catch (error) {
+      console.log("erro: ",error);
+    }
   }
 
   trocaModoLoginCadastro(){
