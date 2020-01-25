@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
   }
 
   realizarLogin(){
-    console.log("entrou",this.loginForm.value);
+    
   }
 
   trocaModoLoginCadastro(){
