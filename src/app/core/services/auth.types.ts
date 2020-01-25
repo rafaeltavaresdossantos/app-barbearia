@@ -9,7 +9,7 @@ export interface Usuario {
     senha: string;
 }
 export interface OpcoesAutenticacao {
-    isLogado: boolean;
-    modoAutenticao: ModoAutenticacao;
+    isCadastro: boolean;
+    modoAutenticacao: ModoAutenticacao;
     usuario: Usuario;
 }

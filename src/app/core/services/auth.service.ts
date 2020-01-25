@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import {auth} from 'firebase/app';
+import { OpcoesAutenticacao, ModoAutenticacao, Usuario } from './auth.types';
+import { promise } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +14,12 @@ export class AuthService {
   ) { }
 
   //funcao responsavel por receber os dados do formulario extraindo apenas email e senha e realizando a autenticao por email e senha.
-  loginComEmail({email,senha}) :Promise<auth.UserCredential>{
+  loginComEmail({email,senha} :Usuario) :Promise<auth.UserCredential>{
     return this.afauth.auth.signInWithEmailAndPassword(email,senha);
   }
 
   //funcao responsavel por cadastar o usuario no firebase, se o retorno for bem sucedido autoriza a inclusão do nome
-  cadastrarComEmail({email,senha,nome}) :Promise<auth.UserCredential>{
+  cadastrarComEmail({email,senha,nome} :Usuario) :Promise<auth.UserCredential>{
     return this.afauth.auth.createUserWithEmailAndPassword(email,senha)
       .then(res => {
         return res.user.updateProfile({
@@ -30,6 +32,18 @@ export class AuthService {
   logarComFacebook() :Promise<auth.UserCredential>{
     const dadosLogin = new auth.FacebookAuthProvider()
     return this.afauth.auth.signInWithPopup(dadosLogin);
+  }
+  logar({isCadastro, modoAutenticacao, usuario} : OpcoesAutenticacao){
+
+    let operacao : Promise<auth.UserCredential>
+
+    if(modoAutenticacao == ModoAutenticacao.email){
+      operacao = isCadastro ? this.cadastrarComEmail(usuario) : this.loginComEmail(usuario);
+    }else {
+    operacao = this.logarComFacebook();
+      }
+    return operacao;
+
   }
 }
 
