@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { ModoAutenticacao } from 'src/app/core/services/auth.types';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { RecursosService } from 'src/app/core/services/recursos.service';
+import { TradutorMessageService } from 'src/app/core/services/tradutor-message.service';
+import { error } from 'protractor';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +29,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private recursoService: RecursosService,
+    private tradutorMessageService: TradutorMessageService
   ) { }
 
   ngOnInit() {
@@ -56,11 +59,14 @@ export class LoginComponent implements OnInit {
     try {
       const usuarioLogin = await this.authService.logar({
         isCadastro: !this.comparaCadEmail.modoLogin, modoAutenticacao: modoAutenticacao, usuario: this.loginForm.value})
-        console.log("Entrouuu", usuarioLogin);
+        
+        if (this.comparaCadEmail.modoLogin == false){
+          await this.recursoService.toast({message: 'Cadastro realizado com sucessso!', color: 'success'});
+        }
 
     } catch (error) {
         console.log(error);
-        await this.recursoService.toast({message: error.message})
+        await this.recursoService.toast({message:  this.tradutorMessageService.traduzirMensagem(error.code)})
     } finally {
       modoCarregando.dismiss();
     }
