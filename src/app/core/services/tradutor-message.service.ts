@@ -7,16 +7,18 @@ export class TradutorMessageService {
 
   constructor() { }
 
-  traduzirMensagem(core){
-    switch(core){
+  traduzirMensagem(code: string): string {
+    switch (code) {
       case 'auth/user-not-found' :
-        return 'E-mail não cadastrado!'
+        return 'E-mail não cadastrado!';
       case 'auth/wrong-password' :
-        return 'Senha incorreta, tente novamente!'
+        return 'Senha incorreta, tente novamente!';
       case 'auth/email-already-in-use' :
-        return 'O endereço de email já está sendo usado por outra conta!'
+        return 'O endereço de email já está sendo usado por outra conta!';
       case 'auth/too-many-requests' :
-        return 'Muitas tentativas de login sem êxito. Por favor, tente novamente mais tarde.'    
+        return 'Muitas tentativas de login sem êxito. Por favor, tente novamente mais tarde.';
+      default:
+        return 'Erro inesperado ao tentar realizar login.';
     }
   }
 }
