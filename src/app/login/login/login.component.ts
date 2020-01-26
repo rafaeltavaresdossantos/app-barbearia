@@ -4,7 +4,6 @@ import { ModoAutenticacao } from 'src/app/core/services/auth.types';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { RecursosService } from 'src/app/core/services/recursos.service';
 import { TradutorMessageService } from 'src/app/core/services/tradutor-message.service';
-import { error } from 'protractor';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +22,7 @@ export class LoginComponent implements OnInit {
   private controlNome = new FormControl(
     '',
     [Validators.required]
-   )
+   );
 
   constructor(
     private fb: FormBuilder,
@@ -38,47 +37,50 @@ export class LoginComponent implements OnInit {
   }
 
   // loginform recebe FormBuilder e realiza a validação do campo.
-  criaFormulario(){
+  criaFormulario() {
     this.loginForm = this.fb.group({
-      email: ['',[
+      email: ['', [
         Validators.required,
         Validators.email
         ]
       ],
-      senha: [ '',[
+      senha: [ '', [
         Validators.required,
         Validators.minLength(6),
       ]
     ],
-      
-    })
+
+    });
   }
 
- async realizarLogin(modoAutenticacao : ModoAutenticacao){
+ async realizarLogin(modoAutenticacao: ModoAutenticacao) {
   const modoCarregando = await this.recursoService.loading();
-    try {
+  try {
       const usuarioLogin = await this.authService.logar({
-        isCadastro: !this.comparaCadEmail.modoLogin, modoAutenticacao: modoAutenticacao, usuario: this.loginForm.value})
-        
-        if (!this.comparaCadEmail.modoLogin){
-          await this.recursoService.toast({message: 'Cadastro realizado com sucessso!', color: 'success'});
-        }
+        isCadastro: !this.comparaCadEmail.modoLogin,
+        modoAutenticacao: modoAutenticacao,
+        usuario: this.loginForm.value
+      });
+
+      if (!this.comparaCadEmail.modoLogin) {
+        await this.recursoService.toast({message: 'Cadastro realizado com sucessso!', color: 'success'});
+      }
 
     } catch (error) {
         console.log(error);
-        await this.recursoService.toast({message:  this.tradutorMessageService.traduzirMensagem(error.code)})
+        await this.recursoService.toast({message: this.tradutorMessageService.traduzirMensagem(error.code)});
     } finally {
       modoCarregando.dismiss();
     }
   }
 
-  trocaModoLoginCadastro(){
+  trocaModoLoginCadastro() {
 
   this.comparaCadEmail.modoLogin = !this.comparaCadEmail.modoLogin;
-  const {modoLogin} = this.comparaCadEmail
-  this.comparaCadEmail.acao = modoLogin ? 'Login' : 'Cadastro'
-  this.comparaCadEmail.trocaAcao = modoLogin ? 'Criar Conta' : 'Já possuo uma conta'
-  
+  const {modoLogin} = this.comparaCadEmail;
+  this.comparaCadEmail.acao = modoLogin ? 'Login' : 'Cadastro';
+  this.comparaCadEmail.trocaAcao = modoLogin ? 'Criar Conta' : 'Já possuo uma conta';
+
   !modoLogin ? this.loginForm.addControl('nome', this.controlNome ) : this.loginForm.removeControl('nome');
 
   }
