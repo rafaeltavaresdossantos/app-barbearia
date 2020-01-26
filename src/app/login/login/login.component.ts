@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
       const usuarioLogin = await this.authService.logar({
         isCadastro: !this.comparaCadEmail.modoLogin, modoAutenticacao: modoAutenticacao, usuario: this.loginForm.value})
         
-        if (this.comparaCadEmail.modoLogin == false){
+        if (!this.comparaCadEmail.modoLogin){
           await this.recursoService.toast({message: 'Cadastro realizado com sucessso!', color: 'success'});
         }
 
