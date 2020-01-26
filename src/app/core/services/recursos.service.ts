@@ -29,10 +29,11 @@ export class RecursosService {
 
   async toast(options?: ToastOptions): Promise<HTMLIonToastElement> {
     const toast = await this.toastCtrl.create({
-      position: 'bottom',
-      duration: 3000,
+      position: 'top',
+      duration: 4000,
       showCloseButton: true,
-      closeButtonText: 'Ok',
+      closeButtonText: 'x',
+      color: 'medium',
       ...options
     });
     await toast.present();
