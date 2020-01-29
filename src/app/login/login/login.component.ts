@@ -4,6 +4,7 @@ import { ModoAutenticacao } from 'src/app/core/services/auth.types';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { RecursosService } from 'src/app/core/services/recursos.service';
 import { TradutorMessageService } from 'src/app/core/services/tradutor-message.service';
+import { Routes, RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +29,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private recursoService: RecursosService,
-    private tradutorMessageService: TradutorMessageService
+    private tradutorMessageService: TradutorMessageService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -66,6 +68,7 @@ export class LoginComponent implements OnInit {
         await this.recursoService.toast({message: 'Cadastro realizado com sucessso!', color: 'success'});
       }
 
+      this.router.navigate(['/barbearias']);
     } catch (error) {
         console.log(error);
         await this.recursoService.toast({message: this.tradutorMessageService.traduzirMensagem(error.code)});

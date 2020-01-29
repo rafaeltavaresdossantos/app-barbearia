@@ -14,9 +14,11 @@ export class TradutorMessageService {
       case 'auth/wrong-password' :
         return 'Senha incorreta, tente novamente!';
       case 'auth/email-already-in-use' :
-        return 'O endereço de email já está sendo usado por outra conta!';
+        return 'O endereço de email já está sendo utilizado!';
       case 'auth/too-many-requests' :
         return 'Muitas tentativas de login sem êxito. Por favor, tente novamente mais tarde.';
+      case 'auth/network-request-failed' :
+        return 'Ops! Verifique sua conexão com a internet.';  
       default:
         return 'Erro inesperado ao tentar realizar login.';
     }
