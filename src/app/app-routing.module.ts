@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
   { path: 'login', loadChildren: () => import('./login/login.module').then( m => m.LoginModule)},
-  { path: 'barbearias', loadChildren: () => import('./barbearias/barbearias.module').then( m => m.BarbeariasModule)},
+  { path: 'barbearias', loadChildren: () => import('./barbearias/barbearias.module').then( m => m.BarbeariasModule), 
+    canLoad: [AuthGuard]
+  },
 ];
 
 @NgModule({

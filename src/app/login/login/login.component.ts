@@ -4,7 +4,9 @@ import { ModoAutenticacao } from 'src/app/core/services/auth.types';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { RecursosService } from 'src/app/core/services/recursos.service';
 import { TradutorMessageService } from 'src/app/core/services/tradutor-message.service';
-import { Routes, RouterModule, Router } from '@angular/router';
+import { Routes, RouterModule, Router, ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
+import { url } from 'inspector';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +32,9 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private recursoService: RecursosService,
     private tradutorMessageService: TradutorMessageService,
-    private router: Router
+    private router: Router,
+    private navController: NavController,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -67,8 +71,7 @@ export class LoginComponent implements OnInit {
       if (!this.comparaCadEmail.modoLogin) {
         await this.recursoService.toast({message: 'Cadastro realizado com sucessso!', color: 'success'});
       }
-
-      this.router.navigate(['/barbearias']);
+      this.navController.navigateForward(this.route.snapshot.queryParamMap.get('url') || '/barbearias')
     } catch (error) {
         console.log(error);
         await this.recursoService.toast({message: this.tradutorMessageService.traduzirMensagem(error.code)});
