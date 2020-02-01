@@ -3,15 +3,22 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import {auth} from 'firebase/app';
 import { OpcoesAutenticacao, ModoAutenticacao, Usuario } from './auth.types';
 import { promise } from 'protractor';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  public estadoUsuario$: Observable<firebase.User>
+
   constructor(
     private afauth: AngularFireAuth
-  ) { }
+    
+  ) { 
+    this.estadoUsuario$ = this.afauth.authState
+  }
 
   //funcao responsavel por receber os dados do formulario extraindo apenas email e senha e realizando a autenticao por email e senha.
   private loginComEmail({email,senha} :Usuario) :Promise<auth.UserCredential>{
@@ -48,6 +55,14 @@ export class AuthService {
   sair(){
     return this.afauth.auth.signOut();
   }
+
+  get isAutenticado() : Observable<boolean> {
+    return this.estadoUsuario$.pipe(
+      map(usuario => usuario != null ) 
+    )
+
+  }
+
 }
 
  
