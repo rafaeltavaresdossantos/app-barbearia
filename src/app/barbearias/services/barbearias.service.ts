@@ -13,8 +13,9 @@ export class BarbeariasService extends Firestore<barbearias> {
     db: AngularFirestore,
   ) { 
     super(db)
+    this.inicio();
   }
   inicio(){
-    this.setCollection('/barbearias')
+    this.setCollection('/barbearias', ref => ref.orderBy('padrao', 'desc'));
   }
 }

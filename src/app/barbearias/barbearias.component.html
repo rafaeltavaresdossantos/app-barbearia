@@ -37,16 +37,16 @@
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding container">
-      <ion-card>
+      <ion-card *ngFor="let barbearia of barbearias | async" (click)="acessarBarbearia(barbearia.id)">
         <ion-item>
           <ion-avatar slot="start">
-            <img src="assets/img/barbearia1.jpg">
+            <img [src]="barbearia.foto">
           </ion-avatar>
           <ion-label>
-            <h2>Barbearia California</h2>
-            <h3>Av. Amador Bueno, N°232</h3>
+            <h2>{{ barbearia.nome }}</h2>
+            <h3>{{barbearia.endereco}}</h3>
           </ion-label>
-          <ion-checkbox color="primary"></ion-checkbox>
+          <!-- <ion-checkbox color="primary" [checked]="barbearia.padrao"></ion-checkbox> -->
         </ion-item>
       </ion-card>
     </ion-content>
