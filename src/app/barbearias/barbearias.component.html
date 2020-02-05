@@ -37,7 +37,7 @@
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding container">
-      <ion-card *ngFor="let barbearia of barbearias | async" (click)="acessarBarbearia(barbearia.id)">
+      <ion-card *ngFor="let barbearia of barbearias$ | async" (click)="acessarBarbearia(barbearia.id)">
         <ion-item>
           <ion-avatar slot="start">
             <img [src]="barbearia.foto">

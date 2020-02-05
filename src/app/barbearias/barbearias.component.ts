@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BarbeariasService } from './services/barbearias.service';
 import { Observable } from 'rxjs';
-import { barbearias } from './models/barbearias.model';
+import { Barbearia } from './models/barbearia.model';
 import { BarbeariasPadraoService } from './services/barbearias-padrao.service';
 import { Router } from '@angular/router';
 
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class BarbeariasComponent implements OnInit {
 
-  public barbearias: Observable<barbearias[]> 
+  public barbearias$: Observable<Barbearia[]>;
 
   constructor(
     private barbeariasService: BarbeariasService,
@@ -21,7 +21,7 @@ export class BarbeariasComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.barbearias = this.barbeariasService.getAll();
+    this.barbearias$ = this.barbeariasService.getAll();
     this.barbeariasService.getAll().subscribe(barbearias => console.log(barbearias));
   }
   acessarBarbearia(id: string){
