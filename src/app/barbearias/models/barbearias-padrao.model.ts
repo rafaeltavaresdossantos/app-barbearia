@@ -1,5 +1,5 @@
-export interface barbeariasPadrao {
-    idBarbearia: string,
-    idUsuario: string,
-    id: string,
+export interface BarbeariasPadrao {
+    idBarbearia: string;
+    idUsuario: string;
+    id: string;
 }

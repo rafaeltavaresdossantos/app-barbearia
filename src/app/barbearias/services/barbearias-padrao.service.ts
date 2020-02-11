@@ -1,28 +1,32 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { firestore } from 'firebase';
-import { barbeariasPadrao } from '../models/barbearias-padrao.model';
+import { BarbeariasPadrao } from '../models/barbearias-padrao.model';
 import { Firestore } from 'src/app/core/classes/firestore.class';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BarbeariasPadraoService  extends Firestore<barbeariasPadrao>{
+export class BarbeariasPadraoService extends Firestore<BarbeariasPadrao> {
 
   constructor(
     private authService: AuthService,
     db: AngularFirestore,
   ) {
     super(db);
+    this.inicio();
    }
-   inicio(){
-     this.authService.estadoUsuario$.subscribe(usuario => {
-      if(usuario) {
-        this.setCollection(`/usuarios/${usuario.uid}/barbearias-padrao`)
-        return
-        }
-        this.setCollection(null);
-      })
+   inicio() {
+    // console.log('init task service')
+
+    // this.authService.estadoUsuario$.subscribe(usuario => {
+    //   console.log('autenticou')
+    //   if (usuario) {
+    //     console.log('vai dar setcollection')
+    //     this.setCollection(`/usuarios/${usuario.uid}/barbearias-padrao`);
+    //     return;
+    //   }
+    //   this.setCollection(null);
+    //   });
    }
 }

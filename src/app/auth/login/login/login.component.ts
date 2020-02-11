@@ -6,7 +6,6 @@ import { RecursosService } from 'src/app/core/services/recursos.service';
 import { TradutorMessageService } from 'src/app/core/services/tradutor-message.service';
 import { Routes, RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { url } from 'inspector';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +19,7 @@ export class LoginComponent implements OnInit {
     modoLogin: true,
     acao: 'Login',
     trocaAcao: 'Cadastro'
-  }
+  };
   public modoAutenticacao = ModoAutenticacao;
   private controlNome = new FormControl(
     '',
@@ -64,14 +63,14 @@ export class LoginComponent implements OnInit {
   try {
       const usuarioLogin = await this.authService.logar({
         isCadastro: !this.comparaCadEmail.modoLogin,
-        modoAutenticacao: modoAutenticacao,
+        modoAutenticacao,
         usuario: this.loginForm.value
       });
 
       if (!this.comparaCadEmail.modoLogin) {
         await this.recursoService.toast({message: 'Cadastro realizado com sucessso!', color: 'success'});
       }
-      this.navController.navigateForward(this.route.snapshot.queryParamMap.get('url') || '/barbearias')
+      this.navController.navigateForward(this.route.snapshot.queryParamMap.get('redirect') || '/barbearias');
     } catch (error) {
         console.log(error);
         await this.recursoService.toast({message: this.tradutorMessageService.traduzirMensagem(error.code)});
