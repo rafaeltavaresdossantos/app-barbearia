@@ -5,6 +5,7 @@ import { Barbearia } from '../../models/barbearia.model';
 import { BarbeariasPadraoService } from '../../services/barbearias-padrao.service';
 import { Router } from '@angular/router';
 import { BarbeariasPadrao } from '../../models/barbearias-padrao.model';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-lista-barbearias',
@@ -18,7 +19,7 @@ export class ListaBarbeariasComponent implements OnInit {
   constructor(
     private barbeariasPadrao: BarbeariasPadraoService,
     private barbeariasService: BarbeariasService,
-    private router: Router
+    private navCtrl: NavController
   ) { }
 
   ngOnInit() {
@@ -27,7 +28,7 @@ export class ListaBarbeariasComponent implements OnInit {
   }
 
   acessarBarbearia(id: string) {
-    this.router.navigate([`/barbearias/${id}`]);
+    this.navCtrl.navigateForward(['barbearias', id]);
   }
 
   togglePadrao(barbearia) {
