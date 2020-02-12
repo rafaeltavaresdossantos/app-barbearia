@@ -46,7 +46,11 @@
             <h2>{{ barbearia.nome }}</h2>
             <h3>{{barbearia.endereco}}</h3>
           </ion-label>
-          <!-- <ion-checkbox color="primary" [checked]="barbearia.padrao"></ion-checkbox> -->
+          <ion-checkbox 
+            color="primary" 
+            [checked]="barbearia.padrao" 
+            (ionChange)="togglePadrao(barbearia)">
+          </ion-checkbox>
         </ion-item>
       </ion-card>
     </ion-content>

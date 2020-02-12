@@ -16,17 +16,22 @@ export class ListaBarbeariasComponent implements OnInit {
   public barbearias$: Observable<Barbearia[]>;
 
   constructor(
+    private barbeariasPadrao: BarbeariasPadraoService,
     private barbeariasService: BarbeariasService,
     private router: Router
   ) { }
 
   ngOnInit() {
 
-    this.barbearias$ = this.barbeariasService.getAll();
+    this.barbearias$ = this.barbeariasService.getAllBarbearias();
   }
 
   acessarBarbearia(id: string) {
     this.router.navigate([`/barbearias/${id}`]);
+  }
+
+  togglePadrao(barbearia) {
+    this.barbeariasPadrao.togglePadrao(barbearia);
   }
 
 }

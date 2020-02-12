@@ -5,13 +5,13 @@
 export const environment = {
   production: false,
    firebase: {
-    apiKey: "AIzaSyC5Gzfzs2aHGSSMCKt7ZrZ3IRTXYzZOTTA",
-    authDomain: "app-barbearia-5984c.firebaseapp.com",
-    databaseURL: "https://app-barbearia-5984c.firebaseio.com",
-    projectId: "app-barbearia-5984c",
-    storageBucket: "app-barbearia-5984c.appspot.com",
-    messagingSenderId: "91861104012",
-    appId: "1:91861104012:web:fb51e6a961d6d0694a52a9"
+    apiKey: 'AIzaSyDnkN-2iI7w-VT_eBuSLA2crhDlY4ijtas',
+    authDomain: 'app-barbearia-708b1.firebaseapp.com',
+    databaseURL: 'https://app-barbearia-708b1.firebaseio.com',
+    projectId: 'app-barbearia-708b1',
+    storageBucket: 'app-barbearia-708b1.appspot.com',
+    messagingSenderId: '16079222270',
+    appId: '1:16079222270:web:c55ab33e6ad288a6977caf'
   },
 };
 

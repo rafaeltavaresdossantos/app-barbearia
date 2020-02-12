@@ -23,22 +23,21 @@ export class BarbeariasService extends Firestore<Barbearia> {
     this.setCollection('/barbearias');
   }
 
-  // getAll(): Observable<Barbearia[]> {
-  //   return combineLatest(
-  //     this.collection.valueChanges(),
-  //     this.barbeariasPadraoService.getAll()
-  //   )
-  //   .pipe(
-  //     tap(console.log),
-  //     map(this.mapBarbearia),
-  //     tap(console.log),
-  //   );
-  // }
+  getAllBarbearias(): Observable<Barbearia[]> {
+    return combineLatest(
+      this.getAll(),
+      this.barbeariasPadraoService.getAllPadrao()
+    )
+    .pipe(
+      map(this.mapBarbearia.bind(this))
+    );
+  }
 
-  // private mapBarbearia([barbearias, barbeariasPadrao]) {
-  //   return barbearias.map(barbearia => ({
-  //     ...barbearia,
-  //     padrao: barbeariasPadrao.find(padrao => padrao.idBarbearia === barbearia.id) !== undefined
-  //   }));
-  // }
+  private mapBarbearia([barbearias, barbeariasPadrao]) {
+    return barbearias.map(barbearia => ({
+      ...barbearia,
+      padrao: this.barbeariasPadraoService.getById(barbeariasPadrao, barbearia.id) !== null,
+      objectPadrao: this.barbeariasPadraoService.getById(barbeariasPadrao, barbearia.id)
+    }));
+  }
 }
