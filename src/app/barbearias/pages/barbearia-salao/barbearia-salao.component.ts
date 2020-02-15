@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { BarbeariasService } from '../../services/barbearias.service';
+import { Observable } from 'rxjs';
+import { Barbearia } from '../../models/barbearia.model';
 
 @Component({
   selector: 'app-barbearia-salao',
@@ -7,8 +11,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BarbeariaSalaoComponent implements OnInit {
 
-  constructor() { }
+  sliderConfig = {
+    slidesPerView: 1.6,
+    spaceBetween: 10,
+    centeredSlides: true
+  };
 
-  ngOnInit() {}
+  public barbeiros = [
+    {
+      nome: 'Jeferson',
+      exp: 'Cortes desenhados'
+    },
+    {
+    nome: 'João',
+    exp: 'Degradê'
+    },
+    {
+      nome: 'Gabriel',
+      exp: ` - Barba
+             - Cortes: Simples, Degradê, Frizado e Desenho.  
+        `
+    }
+  ]
+  public barbearia$ :Observable<Barbearia>
+
+  constructor(
+    private route: ActivatedRoute,
+    private barbeariasService: BarbeariasService
+  ) {}
+
+  ngOnInit() {
+    //Pegando rota do navegador, apenas id
+    const id = this.route.snapshot.paramMap.get('id')
+    this.barbearia$ = this.barbeariasService.get(id)
+  }
 
 }
