@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Firestore } from 'src/app/core/classes/firestore.class';
-import { Barbearia } from 'src/app/barbearias/models/barbearia.model';
 import { Barbeiro } from '../models/barbeiro.model';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable, observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
