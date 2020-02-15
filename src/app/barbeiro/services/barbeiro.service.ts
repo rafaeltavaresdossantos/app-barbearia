@@ -3,7 +3,7 @@ import { Firestore } from 'src/app/core/classes/firestore.class';
 import { Barbearia } from 'src/app/barbearias/models/barbearia.model';
 import { Barbeiro } from '../models/barbeiro.model';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,10 @@ export class BarbeiroService extends Firestore<Barbeiro>{
     //pegando tabela de barbeiros por barbearia
     this.setCollection('/barbeiros', ref => ref.where('idBarbearia', '==', idBarbearia))
     return this.getAll()
+  }
+  listarBarbeiro(id: string) :Observable<Barbeiro>{
+    this.setCollection('/barbeiros');
+    return this.get(id)
   }
 }
 
