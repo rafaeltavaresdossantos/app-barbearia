@@ -21,8 +21,8 @@ export class BarbeariaSalaoComponent implements OnInit {
     centeredSlides: true
   };
 
-  public barbeiros$ : Observable<Barbeiro[]> 
-  public barbearia$ :Observable<Barbearia>
+  public barbeiros$: Observable<Barbeiro[]> ;
+  public barbearia$: Observable<Barbearia>;
   public imagemPadrao = IMAGEM_BARBEIRO_PADRAO;
 
   constructor(
@@ -33,15 +33,13 @@ export class BarbeariaSalaoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    //Pegando rota do navegador, apenas id
-    const id = this.route.snapshot.paramMap.get('id')
-    this.barbearia$ = this.barbeariasService.get(id)
+    // Pegando rota do navegador, apenas id
+    const id = this.route.snapshot.paramMap.get('id');
+    this.barbearia$ = this.barbeariasService.get(id);
     this.barbeiros$ = this.barbeiroService.listarBarbeirosPorBarbearia(id);
   }
-  acessarBarbeiro(id: string){
+  acessarBarbeiro(id: string) {
     this.navCtrl.navigateForward(['barbeiro', id]);
   }
-  
-
 
 }

@@ -8,20 +8,23 @@ import { Observable, observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class BarbeiroService extends Firestore<Barbeiro>{
+export class BarbeiroService extends Firestore<Barbeiro> {
 
   constructor(
     db: AngularFirestore,
-) {super(db)}
-
-  listarBarbeirosPorBarbearia(idBarbearia: string) :Observable<Barbeiro[]>{
-    //pegando tabela de barbeiros por barbearia
-    this.setCollection('/barbeiros', ref => ref.where('idBarbearia', '==', idBarbearia))
-    return this.getAll()
+  ) {
+    super(db);
   }
-  listarBarbeiro(id: string) :Observable<Barbeiro>{
+
+  listarBarbeirosPorBarbearia(idBarbearia: string): Observable<Barbeiro[]> {
+    // pegando tabela de barbeiros por barbearia
+    this.setCollection('/barbeiros', ref => ref.where('idBarbearia', '==', idBarbearia));
+    return this.getAll();
+  }
+
+  listarBarbeiro(id: string): Observable<Barbeiro> {
     this.setCollection('/barbeiros');
-    return this.get(id)
+    return this.get(id);
   }
 }
 
