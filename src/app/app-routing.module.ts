@@ -13,6 +13,11 @@ const routes: Routes = [
     loadChildren: () => import('./barbearias/barbearias.module').then(m => m.BarbeariasModule),
     canLoad: [AuthGuard]
   },
+  {
+    path: 'barbeiro',
+    loadChildren: () => import('./barbeiro/barbeiro.module').then(m => m.BarbeiroModule),
+    canLoad: [AuthGuard]
+  },
 ];
 
 @NgModule({
