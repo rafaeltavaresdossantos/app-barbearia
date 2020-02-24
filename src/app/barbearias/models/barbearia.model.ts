@@ -6,5 +6,6 @@ export interface Barbearia {
     foto: string;
     endereco: string;
     padrao: boolean;
+    descricao: string;
     objectPadrao: BarbeariasPadrao;
 }
