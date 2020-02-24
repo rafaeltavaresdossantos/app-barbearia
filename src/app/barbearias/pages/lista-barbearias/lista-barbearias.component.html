@@ -1,7 +1,7 @@
 <ion-app>
   <ion-menu side="start">
     <ion-header>
-      <ion-toolbar translucent>
+      <ion-toolbar translucent color="secondary">
         <ion-title>Barbearias</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -28,10 +28,12 @@
   </ion-menu>
 
   <div class="ion-page" main>
-    <ion-searchbar></ion-searchbar>
+    <ion-searchbar color="primary" placeholder="Encontre sua barbearia" [(ngModel)]="pesquisar"></ion-searchbar>
+
+    
 
     <ion-header>
-      <ion-toolbar>
+      <ion-toolbar color="secondary">
         <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
@@ -39,7 +41,8 @@
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding container">
-      <ion-card *ngFor="let barbearia of barbearias$ | async" (click)="acessarBarbearia(barbearia.id)">
+      <ion-card class="card-barbearia" *ngFor="let barbearia of barbearias$ | async | filter:pesquisar">
+        <div class="acessa-barbearia" (click)="acessarBarbearia(barbearia.id)">
         <ion-item>
           <ion-avatar slot="start">
             <img [src]="barbearia.foto">
@@ -48,13 +51,14 @@
             <h2>{{ barbearia.nome }}</h2>
             <h3>{{barbearia.endereco}}</h3>
           </ion-label>
-          <ion-checkbox 
-            color="primary" 
-            [checked]="barbearia.padrao" 
-            (ionChange)="togglePadrao(barbearia)">
-          </ion-checkbox>
         </ion-item>
-      </ion-card>
+      </div>
+      <ion-checkbox class="check-barbearia"
+        color="primary" 
+        [checked]="barbearia.padrao" 
+        (ionChange)="togglePadrao(barbearia)">
+      </ion-checkbox>
+    </ion-card>
     </ion-content>
   </div>
 </ion-app>

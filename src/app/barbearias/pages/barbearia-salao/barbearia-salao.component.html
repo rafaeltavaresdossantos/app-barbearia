@@ -40,6 +40,7 @@
       <ion-card-content>
         {{barbearia.descricao}}
       </ion-card-content>
+      <button type="button" class="btn btn-primary">Serviços</button>
     </ion-card>
 
 
@@ -61,7 +62,7 @@
           }">
             <ion-slide *ngFor="let barbeiro of barbeiros$ | async">
               
-              <ion-card>
+              <!-- <ion-card>
                 <ion-card-header>
                   <ion-card-title>
                     {{ barbeiro.nome }}
@@ -71,6 +72,37 @@
                     <ion-button expand="full" (click)="acessarBarbeiro(barbeiro.id)">Selecionar</ion-button>
                   </ion-card-content>
                 </ion-card-header>
+              </ion-card> -->
+
+              <ion-card>
+                <div class="ajuste-imagem">
+                  <img class="foto-barbeiro" [src]="barbeiro.imagem"/>
+                </div>
+                <ion-card-header>
+                  <ion-card-title>{{barbeiro.nome}}</ion-card-title>
+                  <ion-card-subtitle>Especialidades:</ion-card-subtitle>
+                </ion-card-header>
+                <ion-list>
+                  <ion-item>
+                   <span>Pokémon Yellow</span>
+                  </ion-item>
+                  <ion-item>
+                    Pokémon Yellow
+                  </ion-item>
+                  <ion-item>
+                    Pokémon Yellow
+                  </ion-item>
+                  <ion-item>
+                    Pokémon Yellow
+                  </ion-item>
+                  <ion-item>
+                    Pokémon Yellow
+                  </ion-item>
+                </ion-list>
+                <ion-card-content>
+                  
+                  <ion-button expand="full" (click)="acessarBarbeiro(barbeiro.id)">Selecionar</ion-button>
+                </ion-card-content>
               </ion-card>
               
             </ion-slide>

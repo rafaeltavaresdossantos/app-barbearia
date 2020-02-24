@@ -12,8 +12,20 @@ import { Barbeiro } from '../../models/barbeiro.model';
 })
 export class BarbeiroSelecionadoComponent implements OnInit {
 
-  public barbeiro$: Observable<Barbeiro>
+  
+  public linhas = [
+    { name: 'Austin', gender: 'Male', company: 'Swimlane' },
+    { name: 'Dany', gender: 'Male', company: 'KFC' },
+    { name: 'Molly', gender: 'Female', company: 'Burger King' },
+  ];
+public colunas = [
+    { prop: 'name' },
+    { name: 'Gender' },
+    { name: 'Company' }
+  ];
 
+  public barbeiro$: Observable<Barbeiro>;
+  
   constructor(
     private barbeiroService: BarbeiroService,
     private route: ActivatedRoute

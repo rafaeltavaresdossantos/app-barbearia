@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Firestore } from 'src/app/core/classes/firestore.class';
 import { Barbearia } from '../models/barbearia.model';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, sortedChanges } from '@angular/fire/firestore';
 import { Observable, combineLatest } from 'rxjs';
 import { BarbeariasPadraoService } from './barbearias-padrao.service';
 import { map, tap } from 'rxjs/operators';
@@ -27,10 +27,12 @@ export class BarbeariasService extends Firestore<Barbearia> {
     return combineLatest(
       this.getAll(),
       this.barbeariasPadraoService.getAllPadrao()
+
     )
     .pipe(
       map(this.mapBarbearia.bind(this))
     );
+   
   }
 
   private mapBarbearia([barbearias, barbeariasPadrao]) {
@@ -38,6 +40,20 @@ export class BarbeariasService extends Firestore<Barbearia> {
       ...barbearia,
       padrao: this.barbeariasPadraoService.getById(barbeariasPadrao, barbearia.id) !== null,
       objectPadrao: this.barbeariasPadraoService.getById(barbeariasPadrao, barbearia.id)
-    }));
+    })).sort((barbeariaA, barbeariaB) =>{
+      if(barbeariaA.padrao) {
+        return -1
+      }
+      if(barbeariaB.padrao) {
+        return 1;
+      }
+      if(barbeariaA.nome < barbeariaB.nome) {
+        return -1
+      }
+      if (barbeariaA > barbeariaB) {
+        return 1;
+      }
+      return 0;
+    })
   }
 }

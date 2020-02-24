@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { BarbeiroSelecionadoComponent } from './barbeiro-selecionado.component';
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -20,4 +19,4 @@ const rotas: Routes = [
     RouterModule.forChild(rotas)
   ]
 })
-export class BarbeiroSelecionadoModule { }
+export class BarbeiroSelecionadoModule {}

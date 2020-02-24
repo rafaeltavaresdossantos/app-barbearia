@@ -15,6 +15,7 @@ import { NavController } from '@ionic/angular';
 export class ListaBarbeariasComponent implements OnInit {
 
   public barbearias$: Observable<Barbearia[]>;
+  public pesquisar
 
   constructor(
     private barbeariasPadrao: BarbeariasPadraoService,
