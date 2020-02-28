@@ -40,16 +40,11 @@
       <ion-card-content>
         {{barbearia.descricao}}
       </ion-card-content>
-      <button type="button" class="btn btn-primary">Serviços</button>
+      <ion-button class="btn-precos">Serviços / Preços</ion-button>
     </ion-card>
-
-
-
     <ng-container *ngIf="barbeiros$ as barbeiros">
-      
-        <div class="category-block">
-      
-          <ion-row no-padding class="category-banner">
+      <div class="category-block">
+        <ion-row no-padding class="category-banner">
             <ion-col text-left button tappable align-self-center>
               Barbeiros
             </ion-col>
@@ -82,23 +77,7 @@
                   <ion-card-title>{{barbeiro.nome}}</ion-card-title>
                   <ion-card-subtitle>Especialidades:</ion-card-subtitle>
                 </ion-card-header>
-                <ion-list>
-                  <ion-item>
-                   <span>Pokémon Yellow</span>
-                  </ion-item>
-                  <ion-item>
-                    Pokémon Yellow
-                  </ion-item>
-                  <ion-item>
-                    Pokémon Yellow
-                  </ion-item>
-                  <ion-item>
-                    Pokémon Yellow
-                  </ion-item>
-                  <ion-item>
-                    Pokémon Yellow
-                  </ion-item>
-                </ion-list>
+                <p>Corte - Barba - platinado</p>
                 <ion-card-content>
                   
                   <ion-button expand="full" (click)="acessarBarbeiro(barbeiro.id)">Selecionar</ion-button>
@@ -109,7 +88,6 @@
           </ion-slides>
       
         </div>
-      
     </ng-container>
   </ion-content>
 </ng-container>

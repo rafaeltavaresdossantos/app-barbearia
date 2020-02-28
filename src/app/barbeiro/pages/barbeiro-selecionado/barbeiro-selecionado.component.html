@@ -1,8 +1,36 @@
-<ion-content padding>
-<div>
-  <ngx-datatable
-    [rows]="linhas"
-    [columns]="colunas">
-  </ngx-datatable>
-</div>
+<ion-header translucent no-border>
+  <ion-list>
+    <ion-item *ngIf="barbeiro$ | async as barbeiro">
+      <ion-avatar>
+        <img [src]="barbeiro.imagem" alt=""> 
+      </ion-avatar>
+      <ion-label>
+        <ion-title slot="end">{{ barbeiro.nome }}</ion-title>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-toolbar>
+    <ion-title class="titulo-lista">Selecione o serviço desejado</ion-title>
+  </ion-toolbar>
+</ion-header>
+<!-- <ion-list>
+  <ion-item *ngIf="barbeiro$ | async as barbeiro"> 
+    <ion-avatar>
+      <img [src]="barbeiro.imagem" alt="">
+    </ion-avatar>
+    <ion-label> {{ barbeiro.nome}}</ion-label>
+  </ion-item>
+</ion-list> -->
+<ion-content>
+<ion-list>
+  <ion-item *ngFor="let l of lista" detail>
+    <ion-label>
+      <h3>{{l.servico}}</h3>
+      <p>{{l.tempo}}</p>
+    </ion-label>
+    <ion-label slot="end" text-right>
+      <h3>{{l.preco}}</h3>
+    </ion-label>
+  </ion-item>
+</ion-list>
 </ion-content>

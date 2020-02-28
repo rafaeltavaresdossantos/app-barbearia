@@ -12,15 +12,19 @@ import { Barbeiro } from '../../models/barbeiro.model';
 export class BarbeiroSelecionadoComponent implements OnInit {
 
   
-  public linhas = [
-    { name: 'Austin', gender: 'Male', company: 'Swimlane' },
-    { name: 'Dany', gender: 'Male', company: 'KFC' },
-    { name: 'Molly', gender: 'Female', company: 'Burger King' },
+  public lista = [
+    { servico: 'Barba', tempo: '15min', preco: this.convertMoeda(13)},
+    { servico: 'Corte', tempo: '15min', preco: this.convertMoeda(13)},
+    { servico: 'Luzes', tempo: '15min', preco: this.convertMoeda(13)},
+    { servico: 'Dezenhos', tempo: '15min', preco: this.convertMoeda(13)},
+    { servico: 'Pezinho', tempo: '15min', preco: this.convertMoeda(13)},
+    { servico: 'Alizante', tempo: '15min', preco: this.convertMoeda(13)},
+    { servico: 'Frizado', tempo: '15min', preco: this.convertMoeda(13)}
   ];
+  
 public colunas = [
-    { prop: 'name' },
-    { name: 'Gender' },
-    { name: 'Company' }
+    { nome: 'Serviços' },
+    { valor: 'Preços' },
   ];
 
   public barbeiro$: Observable<Barbeiro>;
@@ -34,6 +38,12 @@ public colunas = [
     const id = this.route.snapshot.paramMap.get('id');
     this.barbeiro$ = this.barbeiroService.listarBarbeiro(id);
     this.barbeiro$.subscribe(console.log);
+    console.log(this.barbeiro$)
+  }
+
+  convertMoeda(numero){
+    
+    return (numero.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'}))
   }
 
 }

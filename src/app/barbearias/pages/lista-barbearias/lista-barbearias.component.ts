@@ -6,6 +6,8 @@ import { BarbeariasPadraoService } from '../../services/barbearias-padrao.servic
 import { Router } from '@angular/router';
 import { BarbeariasPadrao } from '../../models/barbearias-padrao.model';
 import { NavController } from '@ionic/angular';
+import { RecursosService } from 'src/app/core/services/recursos.service';
+import { messaging } from 'firebase';
 
 @Component({
   selector: 'app-lista-barbearias',
@@ -20,12 +22,13 @@ export class ListaBarbeariasComponent implements OnInit {
   constructor(
     private barbeariasPadrao: BarbeariasPadraoService,
     private barbeariasService: BarbeariasService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private recurososService: RecursosService
   ) { }
 
   ngOnInit() {
-
-    this.barbearias$ = this.barbeariasService.getAllBarbearias();
+    this.carregarBarbearias();
+    
   }
 
   acessarBarbearia(id: string) {
@@ -35,5 +38,14 @@ export class ListaBarbeariasComponent implements OnInit {
   togglePadrao(barbearia) {
     this.barbeariasPadrao.togglePadrao(barbearia);
   }
-
+  async carregarBarbearias(){
+    const carregando = await this.recurososService.loading({message: "Carregando barbearias..."})
+      try {
+        this.barbearias$ = this.barbeariasService.getAllBarbearias();
+      } catch (error) {
+        console.log(error)
+      }finally{
+        carregando.dismiss()
+      }
+    }
 }
