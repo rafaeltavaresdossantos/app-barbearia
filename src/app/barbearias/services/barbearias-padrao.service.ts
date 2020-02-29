@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from 'src/app/core/services/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { BarbeariasPadrao } from '../models/barbearias-padrao.model';
 import { Firestore } from 'src/app/core/classes/firestore.class';
 import { switchMap, tap } from 'rxjs/operators';
 import { Barbearia } from '../models/barbearia.model';
+import { UsuarioService } from 'src/app/core/services/usuario.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,16 +12,16 @@ import { Barbearia } from '../models/barbearia.model';
 export class BarbeariasPadraoService extends Firestore<BarbeariasPadrao> {
 
   constructor(
-    private authService: AuthService,
+    private usuarioService: UsuarioService,
     db: AngularFirestore,
   ) {
     super(db);
    }
 
    getAllPadrao() {
-     return this.authService.estadoUsuario$
+     return this.usuarioService.usuario$
       .pipe(
-        tap(usuario => this.setCollection(`/usuarios/${usuario.uid}/barbearias-padrao`)),
+        tap(usuario => this.setCollection(`/usuarios/${usuario.id}/barbearias-padrao`)),
         switchMap(() => this.getAll())
       );
    }
