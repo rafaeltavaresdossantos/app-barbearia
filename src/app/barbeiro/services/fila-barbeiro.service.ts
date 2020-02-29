@@ -26,6 +26,12 @@ export class FilaBarbeiroService extends Firestore<FilaBarbeiro> {
     return this.getAll();
   }
 
+  getQuantidadeFila(idBarbeiro: string): Observable<number> {
+    return this.getFila(idBarbeiro).pipe(
+      map(fila => fila.length)
+    );
+  }
+
   entrarNaFila(): Observable<FilaBarbeiro> {
 
     return this.usuarioService.usuario$.pipe(
