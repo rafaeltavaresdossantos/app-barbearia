@@ -3,12 +3,10 @@ import { BarbeariasService } from '../../services/barbearias.service';
 import { Observable } from 'rxjs';
 import { Barbearia } from '../../models/barbearia.model';
 import { BarbeariasPadraoService } from '../../services/barbearias-padrao.service';
-import { Router } from '@angular/router';
-import { BarbeariasPadrao } from '../../models/barbearias-padrao.model';
 import { NavController } from '@ionic/angular';
 import { RecursosService } from 'src/app/core/services/recursos.service';
-import { messaging } from 'firebase';
 import { IMAGEM_BARBEARIA_PADRAO } from '../../constantes/imagem-barbearia-padrao';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-lista-barbearias',
@@ -30,7 +28,6 @@ export class ListaBarbeariasComponent implements OnInit {
 
   ngOnInit() {
     this.carregarBarbearias();
-    
   }
 
   acessarBarbearia(id: string) {
@@ -40,14 +37,10 @@ export class ListaBarbeariasComponent implements OnInit {
   togglePadrao(barbearia) {
     this.barbeariasPadrao.togglePadrao(barbearia);
   }
-  async carregarBarbearias(){
-    const carregando = await this.recurososService.loading({message: "Carregando barbearias..."})
-      try {
-        this.barbearias$ = this.barbeariasService.getAllBarbearias();
-      } catch (error) {
-        console.log(error)
-      }finally{
-        carregando.dismiss()
-      }
-    }
+
+  async carregarBarbearias() {
+    const carregando = await this.recurososService.loading({message: 'Carregando barbearias...'});
+    this.barbearias$ = this.barbeariasService.getAllBarbearias();
+    this.barbearias$.pipe(take(1)).subscribe(barbearias => carregando.dismiss());
+  }
 }
