@@ -71,7 +71,7 @@
 
               <ion-card>
                 <div class="ajuste-imagem">
-                  <img class="foto-barbeiro" [src]="barbeiro.imagem"/>
+                  <img class="foto-barbeiro" [src]="barbeiro.imagem || imagemPadrao"/>
                 </div>
                 <ion-card-header>
                   <ion-card-title>{{barbeiro.nome}}</ion-card-title>
