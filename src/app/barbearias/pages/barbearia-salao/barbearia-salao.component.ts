@@ -6,6 +6,7 @@ import { Barbearia } from '../../models/barbearia.model';
 import { BarbeiroService } from 'src/app/barbeiro/services/barbeiro.service';
 import { Barbeiro } from 'src/app/barbeiro/models/barbeiro.model';
 import { IMAGEM_BARBEIRO_PADRAO } from 'src/app/barbeiro/constantes/imagem-barbeiro-padrao';
+import { IMAGEM_BARBEARIA_PADRAO } from 'src/app/barbearias/constantes/imagem-barbearia-padrao';
 import { NavController } from '@ionic/angular';
 
 @Component({
@@ -23,7 +24,8 @@ export class BarbeariaSalaoComponent implements OnInit {
 
   public barbeiros$: Observable<Barbeiro[]> ;
   public barbearia$: Observable<Barbearia>;
-  public imagemPadrao = IMAGEM_BARBEIRO_PADRAO;
+  public imagemBarbeariaPadrao = IMAGEM_BARBEARIA_PADRAO;
+  public imagemBarbeiroPadrao = IMAGEM_BARBEIRO_PADRAO;
 
   constructor(
     private route: ActivatedRoute,

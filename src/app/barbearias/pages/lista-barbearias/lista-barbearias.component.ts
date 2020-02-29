@@ -8,6 +8,7 @@ import { BarbeariasPadrao } from '../../models/barbearias-padrao.model';
 import { NavController } from '@ionic/angular';
 import { RecursosService } from 'src/app/core/services/recursos.service';
 import { messaging } from 'firebase';
+import { IMAGEM_BARBEARIA_PADRAO } from '../../constantes/imagem-barbearia-padrao';
 
 @Component({
   selector: 'app-lista-barbearias',
@@ -17,7 +18,8 @@ import { messaging } from 'firebase';
 export class ListaBarbeariasComponent implements OnInit {
 
   public barbearias$: Observable<Barbearia[]>;
-  public pesquisar
+  public pesquisar;
+  public imagemPadrao = IMAGEM_BARBEARIA_PADRAO;
 
   constructor(
     private barbeariasPadrao: BarbeariasPadraoService,

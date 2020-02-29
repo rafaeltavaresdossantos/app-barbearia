@@ -45,7 +45,7 @@
         <div class="acessa-barbearia" (click)="acessarBarbearia(barbearia.id)">
         <ion-item>
           <ion-avatar slot="start">
-            <img [src]="barbearia.foto">
+            <img [src]="barbearia.foto || imagemPadrao">
           </ion-avatar>
           <ion-label>
             <h2>{{ barbearia.nome }}</h2>

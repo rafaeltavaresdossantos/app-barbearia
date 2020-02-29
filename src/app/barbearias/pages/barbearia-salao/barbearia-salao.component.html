@@ -32,7 +32,7 @@
  <ng-container *ngIf="barbearia$ | async as barbearia">
   <ion-content>
     <ion-card>
-      <img [src]="barbearia.foto"/>
+      <img [src]="barbearia.foto || imagemBarbeariaPadrao"/>
       <ion-card-header>
         <ion-card-subtitle>{{ barbearia.endereco }}</ion-card-subtitle>
         <ion-card-title>{{ barbearia.nome }}</ion-card-title>
@@ -71,7 +71,7 @@
 
               <ion-card>
                 <div class="ajuste-imagem">
-                  <img class="foto-barbeiro" [src]="barbeiro.imagem || imagemPadrao"/>
+                  <img class="foto-barbeiro" [src]="barbeiro.imagem || imagemBarbeiroPadrao"/>
                 </div>
                 <ion-card-header>
                   <ion-card-title>{{barbeiro.nome}}</ion-card-title>
