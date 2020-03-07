@@ -5,6 +5,7 @@ import { Observable, combineLatest } from 'rxjs';
 import { FilaBarbeiro, StatusFila } from '../models/fila-barbeiro.model';
 import { map, take, switchMap } from 'rxjs/operators';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
+import { CortesBarbeiro } from '../models/cortes-barbeiro.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,7 @@ export class FilaBarbeiroService extends Firestore<FilaBarbeiro> {
     );
   }
 
-  entrarNaFila(): Observable<FilaBarbeiro> {
+  entrarNaFila(corte: CortesBarbeiro): Observable<FilaBarbeiro> {
 
     return this.usuarioService.usuario$.pipe(
       map(usuario => ({
@@ -40,8 +41,8 @@ export class FilaBarbeiroService extends Firestore<FilaBarbeiro> {
           data: new Date(),
           idUsuario: usuario.id,
           nomeUsuario: usuario.nome,
-          corte: 'corte',
-          valor: 0,
+          corte: corte.servico,
+          valor: corte.preco,
           status: StatusFila.Aguardando
       })),
       switchMap((fila: FilaBarbeiro) => this.create(fila)),

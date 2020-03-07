@@ -10,6 +10,7 @@ import { CortesBarbeiro } from '../../models/cortes-barbeiro.model';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { Usuario } from 'src/app/core/services/auth.types';
 import { IMAGEM_BARBEIRO_PADRAO } from 'src/app/barbeiro/constantes/imagem-barbeiro-padrao';
+import { RecursosService } from 'src/app/core/services/recursos.service';
 
 @Component({
   selector: 'app-barbeiro-selecionado',
@@ -45,7 +46,8 @@ export class BarbeiroSelecionadoComponent implements OnInit {
     private barbeiroService: BarbeiroService,
     private cortesBarbeiroService: CortesBarbeiroService,
     private filaBarbeiroService: FilaBarbeiroService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private recursosService: RecursosService
   ) {}
 
   ngOnInit() {
@@ -64,13 +66,28 @@ export class BarbeiroSelecionadoComponent implements OnInit {
     // this.usuarioEstaNaFila.subscribe((b) => console.log('Usuario ta na fila:', b));
   }
 
-  entrarNaFila() {
-    this.filaBarbeiroService.entrarNaFila()
+  entrarNaFila(corte: CortesBarbeiro) {
+    this.filaBarbeiroService.entrarNaFila(corte)
       .subscribe(
         res => console.log('deu certo!!', res),
         err => console.log('deu err!!', err),
         () => console.log('completou')
       );
+  }
+
+  async selecionarServico(corte: CortesBarbeiro){
+    const alert = await this.recursosService.alert({
+      header: 'Deseja Entrar na fila?',
+      subHeader: corte.servico,
+      buttons: [{
+        text: 'Entrar na fila',
+        handler: () => this.entrarNaFila(corte)
+      },
+      {
+        text: 'Cancelar',
+      }
+    ]
+    })
   }
 
   async sairDaFila(fila: FilaBarbeiro) {
