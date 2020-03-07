@@ -11,6 +11,10 @@ const rotas: Routes = [
       {
         path: ':id',
         loadChildren: () => import('./pages/barbeiro-selecionado/barbeiro-selecionado.module').then(m => m.BarbeiroSelecionadoModule)
+      },
+      {
+        path: ':id/fila',
+        loadChildren: () => import('./pages/barbeiro-fila/barbeiro-fila.module').then(m => m.BarbeiroFilaModule)
       }
     ]
   }

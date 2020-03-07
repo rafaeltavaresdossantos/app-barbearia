@@ -11,6 +11,7 @@ import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { Usuario } from 'src/app/core/services/auth.types';
 import { IMAGEM_BARBEIRO_PADRAO } from 'src/app/barbeiro/constantes/imagem-barbeiro-padrao';
 import { RecursosService } from 'src/app/core/services/recursos.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-barbeiro-selecionado',
@@ -40,6 +41,7 @@ export class BarbeiroSelecionadoComponent implements OnInit {
   public filaBarbeiro$: Observable<number>;
   public cortesBarbeiro$: Observable<CortesBarbeiro[]>;
   public usuarioEstaNaFila$: Observable<boolean>;
+  private idBarbeiro: string;
 
   constructor(
     private usuarioService: UsuarioService,
@@ -47,17 +49,18 @@ export class BarbeiroSelecionadoComponent implements OnInit {
     private cortesBarbeiroService: CortesBarbeiroService,
     private filaBarbeiroService: FilaBarbeiroService,
     private route: ActivatedRoute,
-    private recursosService: RecursosService
+    private recursosService: RecursosService,
+    private navCtrl: NavController
   ) {}
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
+    this.idBarbeiro = this.route.snapshot.paramMap.get('id');
 
     this.usuario$ = this.usuarioService.usuario$;
-    this.barbeiro$ = this.barbeiroService.listarBarbeiro(id);
-    this.cortesBarbeiro$ = this.cortesBarbeiroService.getCortes(id);
-    this.filaBarbeiro$ = this.filaBarbeiroService.getQuantidadeFila(id);
-    this.usuarioEstaNaFila$ = this.filaBarbeiroService.usuarioEstaNaFila(id);
+    this.barbeiro$ = this.barbeiroService.listarBarbeiro(this.idBarbeiro);
+    this.cortesBarbeiro$ = this.cortesBarbeiroService.getCortes(this.idBarbeiro);
+    this.filaBarbeiro$ = this.filaBarbeiroService.getQuantidadeFila(this.idBarbeiro);
+    this.usuarioEstaNaFila$ = this.filaBarbeiroService.usuarioEstaNaFila(this.idBarbeiro);
 
     // this.usuario$.subscribe((b) => console.log('Usuário:', b));
     // this.barbeiro$.subscribe((b) => console.log('Barbeiro:', b));
@@ -69,9 +72,9 @@ export class BarbeiroSelecionadoComponent implements OnInit {
   entrarNaFila(corte: CortesBarbeiro) {
     this.filaBarbeiroService.entrarNaFila(corte)
       .subscribe(
-        res => console.log('deu certo!!', res),
+        res => this.navCtrl.navigateForward(['barbeiro',this.idBarbeiro, 'fila']),
         err => console.log('deu err!!', err),
-        () => console.log('completou')
+        
       );
   }
 
