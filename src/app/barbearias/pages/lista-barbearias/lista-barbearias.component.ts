@@ -7,6 +7,8 @@ import { NavController } from '@ionic/angular';
 import { RecursosService } from 'src/app/core/services/recursos.service';
 import { IMAGEM_BARBEARIA_PADRAO } from '../../constantes/imagem-barbearia-padrao';
 import { take } from 'rxjs/operators';
+import { UsuarioService } from 'src/app/core/services/usuario.service';
+import { Usuario } from 'src/app/core/services/auth.types';
 
 @Component({
   selector: 'app-lista-barbearias',
@@ -16,6 +18,7 @@ import { take } from 'rxjs/operators';
 export class ListaBarbeariasComponent implements OnInit {
 
   public barbearias$: Observable<Barbearia[]>;
+  public usuario$: Observable<Usuario>;
   public pesquisar;
   public imagemPadrao = IMAGEM_BARBEARIA_PADRAO;
 
@@ -23,11 +26,13 @@ export class ListaBarbeariasComponent implements OnInit {
     private barbeariasPadrao: BarbeariasPadraoService,
     private barbeariasService: BarbeariasService,
     private navCtrl: NavController,
-    private recurososService: RecursosService
+    private recurososService: RecursosService,
+    private usuariosService: UsuarioService
   ) { }
 
   ngOnInit() {
     this.carregarBarbearias();
+    this.usuarioLogado();
   }
 
   acessarBarbearia(id: string) {
@@ -42,5 +47,8 @@ export class ListaBarbeariasComponent implements OnInit {
     const carregando = await this.recurososService.loading({message: 'Carregando barbearias...'});
     this.barbearias$ = this.barbeariasService.getAllBarbearias();
     this.barbearias$.pipe(take(1)).subscribe(barbearias => carregando.dismiss());
+  }
+  public usuarioLogado(){
+    this.usuario$ = this.usuariosService.usuario$;
   }
 }
