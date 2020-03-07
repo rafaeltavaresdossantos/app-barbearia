@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RecursosService } from 'src/app/core/services/recursos.service';
 import { NavController } from '@ionic/angular';
 import { FilaBarbeiro } from '../../models/fila-barbeiro.model';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-barbeiro-fila',
@@ -50,7 +51,7 @@ export class BarbeiroFilaComponent implements OnInit {
   }
   sairDaFila() {
     
-   this.filaBarbeiroService.sairDaFila(this.idBarbeiro).subscribe(console.log);
+   this.filaBarbeiroService.sairDaFila(this.idBarbeiro).pipe(take(1)).subscribe(() =>{ this.navCtrl.navigateBack('/barbearias')})
     
   }
 
