@@ -1,3 +1,23 @@
-<p>
-  barbeiro-fila works!
-</p>
+<ion-header translucent no-border>
+  <ion-list>
+    <ion-item *ngIf="barbeiro$ | async as barbeiro">
+      <ion-avatar>
+        <img [src]="barbeiro.imagem || imagemPadrao" alt=""> 
+      </ion-avatar>
+      <ion-label>
+        <ion-title slot="end">{{ barbeiro.nome }}</ion-title>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-header>
+<ion-content>
+<ion-list *ngIf="filaBarbeiro$ | async as fila">
+  <ion-item *ngFor="let f of fila; index as i">
+    <ion-label>
+      <h3>{{i+1}}° {{ f.nomeUsuario }}</h3>
+      <p>{{ f.corte }}</p>
+    </ion-label>
+  </ion-item>
+</ion-list>
+<ion-button (click)="sairDaFila()">Sair da fila</ion-button>
+</ion-content>

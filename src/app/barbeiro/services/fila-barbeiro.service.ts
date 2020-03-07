@@ -3,7 +3,7 @@ import { Firestore } from 'src/app/core/classes/firestore.class';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, combineLatest } from 'rxjs';
 import { FilaBarbeiro, StatusFila } from '../models/fila-barbeiro.model';
-import { map, take, switchMap } from 'rxjs/operators';
+import { map, take, switchMap, tap } from 'rxjs/operators';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { CortesBarbeiro } from '../models/cortes-barbeiro.model';
 
@@ -59,7 +59,13 @@ export class FilaBarbeiroService extends Firestore<FilaBarbeiro> {
     );
   }
 
-  sairDaFila(fila: FilaBarbeiro) {
-    return this.delete(fila);
+  sairDaFila(idBarbeiro) {
+    return combineLatest(
+      this.usuarioService.usuario$,
+      this.getFila(idBarbeiro)
+    ).pipe(
+      map(([usuario, fila]) => fila.find(item => item.idUsuario === usuario.id)),
+      tap(fila => fila ? this.delete(fila) : null)
+    );
   }
 }

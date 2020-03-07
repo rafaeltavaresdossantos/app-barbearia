@@ -1,4 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { IMAGEM_BARBEIRO_PADRAO } from '../../constantes/imagem-barbeiro-padrao';
+import { Observable } from 'rxjs';
+import { Usuario } from 'src/app/core/services/auth.types';
+import { Barbeiro } from '../../models/barbeiro.model';
+import { CortesBarbeiro } from '../../models/cortes-barbeiro.model';
+import { UsuarioService } from 'src/app/core/services/usuario.service';
+import { BarbeiroService } from '../../services/barbeiro.service';
+import { CortesBarbeiroService } from '../../services/cortes-barbeiro.service';
+import { FilaBarbeiroService } from '../../services/fila-barbeiro.service';
+import { ActivatedRoute } from '@angular/router';
+import { RecursosService } from 'src/app/core/services/recursos.service';
+import { NavController } from '@ionic/angular';
+import { FilaBarbeiro } from '../../models/fila-barbeiro.model';
 
 @Component({
   selector: 'app-barbeiro-fila',
@@ -7,8 +20,38 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BarbeiroFilaComponent implements OnInit {
 
-  constructor() { }
+  public imagemPadrao = IMAGEM_BARBEIRO_PADRAO;
+  public usuario$: Observable<Usuario>;
+  public barbeiro$: Observable<Barbeiro>;
+  public filaBarbeiro$: Observable<FilaBarbeiro[]>;
+  public cortesBarbeiro$: Observable<CortesBarbeiro[]>;
+  public usuarioEstaNaFila$: Observable<boolean>;
+  private idBarbeiro: string;
 
-  ngOnInit() {}
+  constructor(
+    private usuarioService: UsuarioService,
+    private barbeiroService: BarbeiroService,
+    private cortesBarbeiroService: CortesBarbeiroService,
+    private filaBarbeiroService: FilaBarbeiroService,
+    private route: ActivatedRoute,
+    private recursosService: RecursosService,
+    private navCtrl: NavController
+  ) {}
+
+  ngOnInit() {
+
+    this.idBarbeiro = this.route.snapshot.paramMap.get('id');
+
+    this.usuario$ = this.usuarioService.usuario$;
+    this.barbeiro$ = this.barbeiroService.listarBarbeiro(this.idBarbeiro);
+    this.cortesBarbeiro$ = this.cortesBarbeiroService.getCortes(this.idBarbeiro);
+    this.filaBarbeiro$ = this.filaBarbeiroService.getFila(this.idBarbeiro);
+    this.usuarioEstaNaFila$ = this.filaBarbeiroService.usuarioEstaNaFila(this.idBarbeiro);
+  }
+  sairDaFila() {
+    
+   this.filaBarbeiroService.sairDaFila(this.idBarbeiro).subscribe(console.log);
+    
+  }
 
 }

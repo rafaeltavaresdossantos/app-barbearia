@@ -92,13 +92,4 @@ export class BarbeiroSelecionadoComponent implements OnInit {
     ]
     })
   }
-
-  async sairDaFila(fila: FilaBarbeiro) {
-    try {
-      await this.filaBarbeiroService.sairDaFila(fila);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
 }
