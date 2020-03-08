@@ -51,21 +51,21 @@ export class FilaBarbeiroService extends Firestore<FilaBarbeiro> {
   }
 
   usuarioEstaNaFila(idBarbeiro: string): Observable<boolean> {
-    return combineLatest(
-      this.usuarioService.usuario$,
-      this.getFila(idBarbeiro)
-    ).pipe(
-      map(([usuario, fila]) => fila.find(item => item.idUsuario === usuario.id) !== undefined)
+    return this.filaDoUsuario(idBarbeiro).pipe(
+      map(fila => fila !== undefined)
     );
   }
 
-  sairDaFila(idBarbeiro) {
+  filaDoUsuario(idBarbeiro: string): Observable<FilaBarbeiro> {
     return combineLatest(
       this.usuarioService.usuario$,
       this.getFila(idBarbeiro)
     ).pipe(
-      map(([usuario, fila]) => fila.find(item => item.idUsuario === usuario.id)),
-      tap(fila => fila ? this.delete(fila) : null)
+      map(([usuario, fila]) => fila.find(item => item.idUsuario === usuario.id))
     );
+  }
+
+  sairDaFila(fila: FilaBarbeiro): Promise<void> {
+    return this.delete(fila);
   }
 }

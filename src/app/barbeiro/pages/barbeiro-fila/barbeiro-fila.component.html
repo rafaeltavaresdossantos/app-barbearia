@@ -11,13 +11,18 @@
   </ion-list>
 </ion-header>
 <ion-content>
-<ion-list *ngIf="filaBarbeiro$ | async as fila">
-  <ion-item *ngFor="let f of fila; index as i">
-    <ion-label>
-      <h3>{{i+1}}° {{ f.nomeUsuario }}</h3>
-      <p>{{ f.corte }}</p>
-    </ion-label>
-  </ion-item>
-</ion-list>
-<ion-button (click)="sairDaFila()">Sair da fila</ion-button>
+  <ion-list *ngIf="filaBarbeiro$ | async as fila">
+    <ion-item *ngFor="let f of fila; index as i">
+      <ion-label>
+        <h3>{{i+1}}° {{ f.nomeUsuario }}</h3>
+        <p>{{ f.corte }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-button
+    *ngIf="filaDoUsuario$ | async as fila"
+    (click)="sairDaFila(fila)"
+  >
+    Sair da fila
+  </ion-button>
 </ion-content>

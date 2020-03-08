@@ -12,7 +12,6 @@ import { ActivatedRoute } from '@angular/router';
 import { RecursosService } from 'src/app/core/services/recursos.service';
 import { NavController } from '@ionic/angular';
 import { FilaBarbeiro } from '../../models/fila-barbeiro.model';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-barbeiro-fila',
@@ -26,7 +25,7 @@ export class BarbeiroFilaComponent implements OnInit {
   public barbeiro$: Observable<Barbeiro>;
   public filaBarbeiro$: Observable<FilaBarbeiro[]>;
   public cortesBarbeiro$: Observable<CortesBarbeiro[]>;
-  public usuarioEstaNaFila$: Observable<boolean>;
+  public filaDoUsuario$: Observable<FilaBarbeiro>;
   private idBarbeiro: string;
 
   constructor(
@@ -47,12 +46,16 @@ export class BarbeiroFilaComponent implements OnInit {
     this.barbeiro$ = this.barbeiroService.listarBarbeiro(this.idBarbeiro);
     this.cortesBarbeiro$ = this.cortesBarbeiroService.getCortes(this.idBarbeiro);
     this.filaBarbeiro$ = this.filaBarbeiroService.getFila(this.idBarbeiro);
-    this.usuarioEstaNaFila$ = this.filaBarbeiroService.usuarioEstaNaFila(this.idBarbeiro);
+    this.filaDoUsuario$ = this.filaBarbeiroService.filaDoUsuario(this.idBarbeiro);
   }
-  sairDaFila() {
-    
-   this.filaBarbeiroService.sairDaFila(this.idBarbeiro).pipe(take(1)).subscribe(() =>{ this.navCtrl.navigateBack('/barbearias')})
-    
+
+  async sairDaFila(fila: FilaBarbeiro) {
+    try {
+      await this.filaBarbeiroService.sairDaFila(fila);
+      console.log('usuário removido da fila');
+    } catch (error) {
+      console.log('erro ao remover usuário', error);
+    }
   }
 
 }
