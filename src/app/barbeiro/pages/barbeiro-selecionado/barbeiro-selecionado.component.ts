@@ -38,7 +38,7 @@ export class BarbeiroSelecionadoComponent implements OnInit {
   public imagemPadrao = IMAGEM_BARBEIRO_PADRAO;
   public usuario$: Observable<Usuario>;
   public barbeiro$: Observable<Barbeiro>;
-  public filaBarbeiro$: Observable<number>;
+  public quantidadeFila$: Observable<number>;
   public cortesBarbeiro$: Observable<CortesBarbeiro[]>;
   public usuarioEstaNaFila$: Observable<boolean>;
   private idBarbeiro: string;
@@ -59,7 +59,7 @@ export class BarbeiroSelecionadoComponent implements OnInit {
     this.usuario$ = this.usuarioService.usuario$;
     this.barbeiro$ = this.barbeiroService.listarBarbeiro(this.idBarbeiro);
     this.cortesBarbeiro$ = this.cortesBarbeiroService.getCortes(this.idBarbeiro);
-    this.filaBarbeiro$ = this.filaBarbeiroService.getQuantidadeFila(this.idBarbeiro);
+    this.quantidadeFila$ = this.filaBarbeiroService.getQuantidadeFila(this.idBarbeiro);
     this.usuarioEstaNaFila$ = this.filaBarbeiroService.usuarioEstaNaFila(this.idBarbeiro);
 
     // this.usuario$.subscribe((b) => console.log('Usuário:', b));
@@ -72,13 +72,12 @@ export class BarbeiroSelecionadoComponent implements OnInit {
   entrarNaFila(corte: CortesBarbeiro) {
     this.filaBarbeiroService.entrarNaFila(corte)
       .subscribe(
-        res => this.navCtrl.navigateForward(['barbeiro',this.idBarbeiro, 'fila']),
-        err => console.log('deu err!!', err),
-        
+        res => this.navCtrl.navigateForward(['barbeiro', this.idBarbeiro, 'fila']),
+        err => console.log('deu erro!!', err),
       );
   }
 
-  async selecionarServico(corte: CortesBarbeiro){
+  async selecionarServico(corte: CortesBarbeiro) {
     const alert = await this.recursosService.alert({
       header: 'Deseja Entrar na fila?',
       subHeader: corte.servico,
@@ -90,6 +89,6 @@ export class BarbeiroSelecionadoComponent implements OnInit {
         text: 'Cancelar',
       }
     ]
-    })
+    });
   }
 }
