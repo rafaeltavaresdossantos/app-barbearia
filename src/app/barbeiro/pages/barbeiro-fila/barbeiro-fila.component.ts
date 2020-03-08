@@ -52,7 +52,7 @@ export class BarbeiroFilaComponent implements OnInit {
   async sairDaFila(fila: FilaBarbeiro) {
     try {
       await this.filaBarbeiroService.sairDaFila(fila);
-      console.log('usuário removido da fila');
+      this.navCtrl.navigateBack(['barbeiro', this.idBarbeiro]);
     } catch (error) {
       console.log('erro ao remover usuário', error);
     }
