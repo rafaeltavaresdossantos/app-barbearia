@@ -72,9 +72,13 @@ export class BarbeiroSelecionadoComponent implements OnInit {
   entrarNaFila(corte: CortesBarbeiro) {
     this.filaBarbeiroService.entrarNaFila(corte)
       .subscribe(
-        res => this.navCtrl.navigateForward(['barbeiro', this.idBarbeiro, 'fila']),
+        res => this.acessarFila(),
         err => console.log('deu erro!!', err),
       );
+  }
+
+  acessarFila() {
+    this.navCtrl.navigateForward(['barbeiro', this.idBarbeiro, 'fila']);
   }
 
   async selecionarServico(corte: CortesBarbeiro) {

@@ -7,7 +7,7 @@
       <ion-label>
         <ion-title slot="end">{{ barbeiro.nome }}</ion-title>
       </ion-label>
-      <ion-badge color="primary">
+      <ion-badge (click)="acessarFila()" color="primary">
         {{ (quantidadeFila$ | async) || 0 }} na fila
       </ion-badge>
     </ion-item>
